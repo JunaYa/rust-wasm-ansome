@@ -5,5 +5,5 @@ bin/
 pkg/
 wasm-pack.log
 
-/www/node_modules
-/www/dist
+*/node_modules
+*/dist
