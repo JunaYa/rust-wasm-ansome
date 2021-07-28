@@ -1,4 +1,5 @@
-import { Universe, Cell } from "wasm-game-of-life";
+import { Universe, Cell, run} from "wasm-game-of-life";
+run()
 const CELL_SIZE = 5; // px
 const GRID_COLOR = "#CCCCCC";
 const DEAD_COLOR = "#FFFFFF";
