@@ -19,7 +19,7 @@ pub fn run() -> Result<(), JsValue> {
         .dyn_into::<web_sys::HtmlCanvasElement>()?;
 
     canvas.set_width(640);
-    canvas.set_height(640);
+    canvas.set_height(480);
     canvas.style().set_property("border", "solid")?;
 
     document.body().unwrap().append_child(&canvas)?;
@@ -38,16 +38,14 @@ pub fn run() -> Result<(), JsValue> {
         let context = context.clone();
         let pressed = pressed.clone();
         let closure = Closure::wrap(Box::new(move |event: web_sys::MouseEvent| {
+            context.set_stroke_style(&"rgb(80,80,80)".into());
+            context.set_line_width(8.0);
+            // ctx.lineJoin = "bevel" || "round" || "miter";
+            // 不生效
+            context.set_line_join("bevel");
             context.begin_path();
             context.move_to(event.offset_x() as f64, event.offset_y() as f64);
             pressed.set(true);
-
-            // context.set_fill_style(&"rgb(150,50,0)".into());
-            // context.fill_rect(0.0, 0.0, 100.0, 100.0);
-            // context.set_fill_style(&"rgb(0, 150, 150)".into());
-            // context.fill_rect(10.0, 10.0, 80.0, 80.0);
-            // context.set_fill_style(&"rgb(150, 0, 150)".into());
-            // context.fill_rect(20.0, 20.0, 60.0, 60.0);
         }) as Box<dyn FnMut(_)>);
         canvas.add_event_listener_with_callback("mousedown", closure.as_ref().unchecked_ref())?;
         closure.forget();
@@ -57,8 +55,9 @@ pub fn run() -> Result<(), JsValue> {
         let context = context.clone();
         let pressed = pressed.clone();
         let closure = Closure::wrap(Box::new(move |event: web_sys::MouseEvent| {
-            if (pressed.get()) {
+            if pressed.get() {
                 context.line_to(event.offset_x() as f64, event.offset_y() as f64);
+                context.set_line_join("bevel");
                 context.stroke();
                 context.begin_path();
                 context.move_to(event.offset_x() as f64, event.offset_y() as f64);
