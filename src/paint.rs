@@ -18,7 +18,7 @@ pub fn run() -> Result<(), JsValue> {
 
     document.body().unwrap().append_child(&canvas);
 
-    let mut context = canvas
+    let context = canvas
         .get_context("2d")
         .unwrap()
         .unwrap()
