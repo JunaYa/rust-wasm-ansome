@@ -15,10 +15,11 @@ pub fn run() -> Result<(), JsValue> {
     let canvas = document
         .create_element("canvas")?
         .dyn_into::<web_sys::HtmlCanvasElement>()?;
-    
+
     document.body().unwrap().append_child(&canvas);
 
-    let mut context = canvas.get_context("2d")
+    let mut context = canvas
+        .get_context("2d")
         .unwrap()
         .unwrap()
         .dyn_into::<web_sys::CanvasRenderingContext2d>()
@@ -27,8 +28,7 @@ pub fn run() -> Result<(), JsValue> {
     canvas.set_width(640);
     canvas.set_height(640);
 
-
-    context.set_fill_style(&"rgb(150,50,0)".into());    
+    context.set_fill_style(&"rgb(150,50,0)".into());
     context.fill_rect(0.0, 0.0, 200.0, 200.0);
     context.set_fill_style(&"rgb(0, 150, 150)".into());
     context.fill_rect(10.0, 10.0, 180.0, 180.0);
