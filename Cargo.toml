@@ -45,6 +45,7 @@ features = [
 	'Node',
 	'MouseEvent',
 	'EventTarget',
+	'ImageData',
 ]
 
 [profile.release]

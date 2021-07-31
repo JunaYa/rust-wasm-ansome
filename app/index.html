@@ -16,10 +16,28 @@
         justify-content: center;
       }
     </style>
+     <link rel="stylesheet" href="styles/normalize.css">
+     <link rel="stylesheet" href="styles/skeleton.css">
+     <link rel="stylesheet" href="styles/style.css">
   </head>
   <body>
     <!-- <pre id="game-of-life-canvas"></pre> -->
     <canvas id="game-of-life-canvas" style="display: none;"></canvas>
+    <main style="display: none;">
+      <div class="controls">
+        <h1>C =</h1>
+        <div>
+          <label for="real">real</label>
+          <input type="number" name="real" id="real" value="-0.15" step="0.001">
+        </div>
+        <div>
+          <label for="imaginary">imaginary</label>
+          <input type="number" name="imaginary" id="imaginary" value="0.65" step="0.001">
+        </div>
+        <button class="button-primary" id="render">render</button>
+      </div>
+      <canvas id="drawing" width="600" height="600"></canvas>
+    </main>
     <noscript>This page contains webassembly and javascript content, please enable javascript in your browser.</noscript>
     <script src="./bootstrap.js"></script>
   </body>
