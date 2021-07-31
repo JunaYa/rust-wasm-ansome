@@ -40,7 +40,11 @@ features = [
 	'Element',
 	'HtmlElement',
 	'HtmlCanvasElement',
+	'CssStyleDeclaration',
 	'CanvasRenderingContext2d',
+	'Node',
+	'MouseEvent',
+	'EventTarget',
 ]
 
 [profile.release]
