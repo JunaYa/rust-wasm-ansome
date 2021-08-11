@@ -3,18 +3,29 @@ use std::rc::Rc;
 use wasm_bindgen::prelude::*;
 use wasm_bindgen::JsCast;
 
+fn window () -> web_sys::Window {
+    web_sys::window().expect("no global `window` exist ")
+}
+
+fn document () -> web_sys::Document {
+    window().document().expect("should have document on window")
+}
+
+fn body () -> web_sys::HtmlElement {
+    document().body().expect("document should have body")
+}
+
+fn request_frame_animation(f: &Closure<dyn FnMut()>) {
+    window()
+        .request_animation_frame(f.as_ref().unchecked_ref())
+        .expect("should register `requestAnimationFrame` OK");
+}
+
 // Called by our JS entry point to run the example
 // #[wasm_bindgen(start)]
 #[wasm_bindgen]
 pub fn run() -> Result<(), JsValue> {
-    // Use `web_sys`'s global `window` function to get a handle on the global
-    // window object.
-    let document = web_sys::window().unwrap().document().unwrap();
-    // let canvas = document.get_element_by_id("blackboard").unwrap();
-    // let canvas: web_sys::HtmlCanvasElement = canvas.dyn_into::<web_sys::HtmlCanvasElement>()
-    // .map_err(|_| ())
-    // .unwrap();
-    let canvas = document
+    let canvas = document()
         .create_element("canvas")?
         .dyn_into::<web_sys::HtmlCanvasElement>()?;
 
@@ -22,7 +33,7 @@ pub fn run() -> Result<(), JsValue> {
     canvas.set_height(480);
     canvas.style().set_property("border", "solid")?;
 
-    document.body().unwrap().append_child(&canvas)?;
+    body().append_child(&canvas)?;
 
     let context = canvas
         .get_context("2d")
